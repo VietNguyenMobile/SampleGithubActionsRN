@@ -3,27 +3,26 @@ on:
   push:
     branches: [main]
 jobs:
-  build-android:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v3
-      - name: yarn install dependencies
-        run: |
-          yarn install
+  # build-android:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: yarn install dependencies
+  #       run: |
+  #         yarn install
 
-      - name: Build android release
-        run: |
-          yarn android --mode release
+  #     - name: Build android release
+  #       run: |
+  #         yarn android --mode release
 
   build-ios:
     runs-on: self-hosted
     steps:
       - name: bundle install
         run: bundle install
-      
+
       - name: pod install
-        run: pod install
-      
+        run: cd ios && pod install --repo-update && cd ..
+
       - name: Install App
         run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
-
