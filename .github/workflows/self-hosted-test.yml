@@ -7,11 +7,23 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      - name: Install npm dependencies
+      - name: yarn install dependencies
         run: |
-          npm install
-          # npx react-native run-android --mode=release
+          yarn install
 
       - name: Build android release
         run: |
-          cd android && ./gradlew assembleRelease
+          yarn android --mode release
+
+  build-ios:
+    runs-on: self-hosted
+    steps:
+      - name: bundle install
+        run: bundle install
+      
+      - name: pod install
+        run: pod install
+      
+      - name: Install App
+        run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
+
