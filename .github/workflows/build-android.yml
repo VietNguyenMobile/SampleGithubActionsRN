@@ -1,4 +1,4 @@
-name: CI Build Android
+name: CI Build Android App
 on:
   push:
     branches: [main]
@@ -23,3 +23,13 @@ jobs:
         with:
           name: app-release.apk
           path: android/app/build/outputs/apk/release/
+
+      - name: upload artefact to App Center
+        uses: wzieba/AppCenter-Github-Action@v1
+        with:
+          appName: wzieba/SampleGithubActionsRN
+          token: ${{secrets.APP_CENTER_TOKEN_ANDROID}}
+          group: Testers
+          file: app/build/outputs/apk/release/app-release.apk
+          notifyTesters: true
+          debug: false
