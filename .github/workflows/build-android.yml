@@ -1,35 +1,35 @@
-name: CI Build Android App 1
-on:
-  push:
-    branches: [main]
-jobs:
-  build-android:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install npm dependencies
-        run: |
-          npm install
-          # npx react-native run-android --mode=release
+# name: CI Build Android App 1
+# on:
+#   push:
+#     branches: [main]
+# jobs:
+#   build-android:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Install npm dependencies
+#         run: |
+#           npm install
+#           # npx react-native run-android --mode=release
 
-      - name: Build android release
-        run: |
-          cat ~/.bash_profile
-          source ~/.bash_profile
-          cd android && ./gradlew assembleRelease
+#       - name: Build android release
+#         run: |
+#           cat ~/.bash_profile
+#           source ~/.bash_profile
+#           cd android && ./gradlew assembleRelease
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: app-release.apk
-          path: android/app/build/outputs/apk/release/
+#       - name: Upload artifact
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: app-release.apk
+#           path: android/app/build/outputs/apk/release/
 
-      - name: upload artefact to App Center
-        uses: wzieba/AppCenter-Github-Action@v1
-        with:
-          appName: wzieba/SampleGithubActionsRN
-          token: ${{secrets.APP_CENTER_TOKEN_ANDROID}}
-          group: Testers
-          file: app/build/outputs/apk/release/app-release.apk
-          notifyTesters: true
-          debug: false
+#       - name: upload artefact to App Center
+#         uses: wzieba/AppCenter-Github-Action@v1
+#         with:
+#           appName: wzieba/SampleGithubActionsRN
+#           token: ${{secrets.APP_CENTER_TOKEN_ANDROID}}
+#           group: Testers
+#           file: app/build/outputs/apk/release/app-release.apk
+#           notifyTesters: true
+#           debug: false
