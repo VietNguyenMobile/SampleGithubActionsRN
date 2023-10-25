@@ -38,7 +38,7 @@ jobs:
     needs: [build-and-install-android]
     steps:
       - name: Start Robot Framework for Android
-        run: cd autotest && robot && cd ..
+        run: cd autotest && robot test_sample.robot && cd ..
 
   # start-appium-server-ios:
   #   runs-on: self-hosted
