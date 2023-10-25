@@ -26,16 +26,16 @@ jobs:
   #     - name: Install App
   #       run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
 
-  start-appium-server-android:
-    runs-on: self-hosted
-    needs: [build-and-install-android]
-    steps:
-      - name: Start Start Appium Android
-        run: appium --port 4723 --address 127.0.0.1 --base-path=/wd/hub
+  # start-appium-server-android:
+  #   runs-on: self-hosted
+  #   needs: [build-and-install-android]
+  #   steps:
+  #     - name: Start Start Appium Android
+  #       run: appium --port 4723 --address 127.0.0.1 --base-path=/wd/hub
 
   test-auto-android:
     runs-on: self-hosted
-    needs: [start-appium-server-android]
+    needs: [build-and-install-android]
     steps:
       - name: Start Robot Framework for Android
         run: cd autotest && robot && cd ..
