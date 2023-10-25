@@ -1,9 +1,9 @@
-name: CI Build App
+name: CI Build and Install App
 on:
   push:
     branches: [main]
 jobs:
-  build-android:
+  build-and-install-android:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
@@ -12,23 +12,38 @@ jobs:
           yarn install
 
       - name: Build android release
-        run: |
-          yarn android --mode release
+        run: yarn android --mode release
 
-  build-ios:
-    runs-on: self-hosted
-    steps:
-      - name: bundle install
-        run: bundle install
-
-      - name: pod install
-        run: cd ios && pod install --repo-update && cd ..
-
-      - name: Install App
-        run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
-
-  # run-appium:
+  # build-and-install-ios:
   #   runs-on: self-hosted
   #   steps:
-  #     - name: Run Server Appium
-  #       run: appium
+  #     - name: bundle install
+  #       run: bundle install
+
+  #     - name: pod install
+  #       run: cd ios && pod install --repo-update && cd ..
+
+  #     - name: Install App
+  #       run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
+
+  start-appium-server-android:
+    runs-on: self-hosted
+    needs: [build-and-install-android]
+    steps:
+      - name: Start Start Appium Android
+        run: appium --port 4723 --address 127.0.0.1 --base-path=/wd/hub
+  
+  test-auto-android:
+    needs: [start-appium-server-android]
+      - name: Start Robot Framework for Android
+        run: cd 
+
+  # start-appium-server-ios:
+  #   runs-on: self-hosted
+  #   needs: [build-and-install-ios]
+  #   steps:
+  #     - name: Start Start Appium iOS
+  #       run: appium --port 4724 --address 127.0.0.1 --base-path=/wd/hub
+      
+  #     - name: Start Robot Framework for iOS
+  #       run: cd 

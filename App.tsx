@@ -29,6 +29,14 @@ type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
+export const testProps = id => {
+  if (Platform.OS === 'android') {
+    return {accessibilityLabel: id};
+  } else {
+    return {testID: id};
+  }
+};
+
 function Section({children, title}: SectionProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
@@ -76,10 +84,9 @@ function App(): JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
+          <Text {...testProps('id-app-tsx')} style={styles.highlight}>
+            App.tsx
+          </Text>
           <Section title="See Your Changes">
             <ReloadInstructions />
           </Section>
