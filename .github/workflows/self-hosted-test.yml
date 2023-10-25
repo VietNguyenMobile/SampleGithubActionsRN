@@ -15,14 +15,20 @@ jobs:
   #       run: |
   #         yarn android --mode release
 
-  build-ios:
-    runs-on: self-hosted
+  # build-ios:
+  #   runs-on: self-hosted
+  #   steps:
+  #     # - name: bundle install
+  #     #   run: bundle install
+
+  #     - name: pod install
+  #       run: cd ios && pod install --repo-update && cd ..
+
+  #     - name: Install App
+  #       run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
+
+  run-appium:
+    run-on: self-hosted
     steps:
-      # - name: bundle install
-      #   run: bundle install
-
-      - name: pod install
-        run: cd ios && pod install --repo-update && cd ..
-
-      - name: Install App
-        run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
+      - name: Run Server Appium
+      run: appium
