@@ -7,12 +7,12 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
-      - name: yarn install dependencies
-        run: |
-          yarn install
+      # - name: yarn install dependencies
+      #   run: |
+      #     yarn install
 
-      - name: Build android release
-        run: yarn android --mode release
+      # - name: Build android release
+      #   run: yarn android --mode release
 
   # build-and-install-ios:
   #   runs-on: self-hosted
@@ -36,7 +36,7 @@ jobs:
   test-auto-android:
     needs: [start-appium-server-android]
       - name: Start Robot Framework for Android
-        run: cd 
+        run: robot /Users/macbook/Desktop/Automation/sample_workfl_test/robotframework/tests/android/sample/test_sample.robot
 
   # start-appium-server-ios:
   #   runs-on: self-hosted
