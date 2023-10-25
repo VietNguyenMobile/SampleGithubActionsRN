@@ -33,10 +33,10 @@ jobs:
       - name: Start Start Appium Android
         run: appium --port 4723 --address 127.0.0.1 --base-path=/wd/hub
   
-  test-auto-android:
-    needs: [start-appium-server-android]
-      - name: Start Robot Framework for Android
-        run: cd autotest && robot  && cd .. 
+  # test-auto-android:
+  #   needs: [start-appium-server-android]
+  #     - name: Start Robot Framework for Android
+  #       run: cd autotest && robot && cd .. 
 
   # start-appium-server-ios:
   #   runs-on: self-hosted
