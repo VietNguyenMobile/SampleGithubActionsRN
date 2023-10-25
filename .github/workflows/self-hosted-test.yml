@@ -28,7 +28,7 @@ jobs:
   #       run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
 
   run-appium:
-    run-on: self-hosted
+    runs-on: self-hosted
     steps:
       - name: Run Server Appium
       run: appium
