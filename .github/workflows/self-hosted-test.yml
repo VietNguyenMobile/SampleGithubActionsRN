@@ -36,7 +36,7 @@ jobs:
   test-auto-android:
     needs: [start-appium-server-android]
       - name: Start Robot Framework for Android
-        run: robot /Users/macbook/Desktop/Automation/sample_workfl_test/robotframework/tests/android/sample/test_sample.robot
+        run: cd autotest && robot  && cd .. 
 
   # start-appium-server-ios:
   #   runs-on: self-hosted
