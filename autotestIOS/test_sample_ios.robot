@@ -21,7 +21,7 @@ ${udid}                                 00008101-000C046836E9003A
 
 *** Keywords ***
 Open iOS App Sample
-  open application    http://127.0.0.1:4723
+  open application    http://127.0.0.1:4724/wd/hub
   ...    automationName=${ios_automation_name}
   ...    deviceName=${DEVICE_NAME_IOS}
   ...    platformName=${ios_platform_name}
@@ -38,5 +38,5 @@ Open iOS App Sample
 
 *** Test Cases ***
 Open App And Check Welcome Text
-    Open Android Test App Sample
+    Open iOS App Sample
     Wait Until Page Contains Element    ${WELCOME_TEXT3}    timeout=15s
