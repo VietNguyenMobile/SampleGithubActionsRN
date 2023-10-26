@@ -3,16 +3,16 @@ on:
   push:
     branches: [main]
 jobs:
-  build-and-install-android:
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v3
-      # - name: yarn install dependencies
-      #   run: |
-      #     yarn install
+  # build-and-install-android:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     # - name: yarn install dependencies
+  #     #   run: |
+  #     #     yarn install
 
-      # - name: Build android release
-      #   run: yarn android --mode release
+  #     # - name: Build android release
+  #     #   run: yarn android --mode release
 
   # build-and-install-ios:
   #   runs-on: self-hosted
@@ -33,19 +33,16 @@ jobs:
   #     - name: Start Start Appium Android
   #       run: appium --port 4723 --address 127.0.0.1 --base-path=/wd/hub
 
-  test-auto-android:
-    runs-on: self-hosted
-    needs: [build-and-install-android]
-    steps:
-      - name: Start Robot Framework for Android
-        run: cd autotest && robot test_sample.robot && cd ..
-
-  # start-appium-server-ios:
+  # test-auto-android:
   #   runs-on: self-hosted
-  #   needs: [build-and-install-ios]
+  #   needs: [build-and-install-android]
   #   steps:
-  #     - name: Start Start Appium iOS
-  #       run: appium --port 4724 --address 127.0.0.1 --base-path=/wd/hub
+  #     - name: Start Robot Framework for Android App
+  #       run: cd autotest && robot test_sample.robot && cd ..
 
-  #     - name: Start Robot Framework for iOS
-  #       run: cd
+  test-auto-ios:
+    runs-on: self-hosted
+    # needs: [build-and-install-ios]
+    steps:
+      - name: Start Robot Framework for iOS App
+        run: cd autotestIOS && robot test_sample_ios.robot && cd ..
