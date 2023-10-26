@@ -44,5 +44,6 @@ jobs:
     runs-on: self-hosted
     # needs: [build-and-install-ios]
     steps:
+      - uses: actions/checkout@v3
       - name: Start Robot Framework for iOS App
         run: cd autotestIOS && robot test_sample_ios.robot && cd ..
