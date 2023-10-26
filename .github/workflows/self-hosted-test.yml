@@ -13,6 +13,13 @@ jobs:
       - name: Build android release
         run: yarn android --mode release
 
+  test-auto-android:
+    runs-on: self-hosted
+    needs: [build-and-install-android]
+    steps:
+      - name: Start Robot Framework for Android App
+        run: cd autotestAndroid && robot test_sample.robot && cd ..
+
   build-and-install-ios:
     runs-on: self-hosted
     steps:
@@ -27,13 +34,6 @@ jobs:
 
       - name: Install App
         run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
-
-  test-auto-android:
-    runs-on: self-hosted
-    needs: [build-and-install-android]
-    steps:
-      - name: Start Robot Framework for Android App
-        run: cd autotest && robot test_sample.robot && cd ..
 
   test-auto-ios:
     runs-on: self-hosted
