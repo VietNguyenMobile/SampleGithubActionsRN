@@ -3,46 +3,41 @@ on:
   push:
     branches: [main]
 jobs:
-  # build-and-install-android:
-  #   runs-on: self-hosted
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     # - name: yarn install dependencies
-  #     #   run: |
-  #     #     yarn install
+  build-and-install-android:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: yarn install dependencies
+        run: yarn install
 
-  #     # - name: Build android release
-  #     #   run: yarn android --mode release
+      - name: Build android release
+        run: yarn android --mode release
 
-  # build-and-install-ios:
-  #   runs-on: self-hosted
-  #   steps:
-  #     - name: bundle install
-  #       run: bundle install
+  build-and-install-ios:
+    runs-on: self-hosted
+    steps:
+      - name: yarn install dependencies
+          run: yarn install
 
-  #     - name: pod install
-  #       run: cd ios && pod install --repo-update && cd ..
+      - name: bundle install
+        run: bundle install
 
-  #     - name: Install App
-  #       run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
+      - name: pod install
+        run: cd ios && pod install --repo-update && cd ..
 
-  # start-appium-server-android:
-  #   runs-on: self-hosted
-  #   needs: [build-and-install-android]
-  #   steps:
-  #     - name: Start Start Appium Android
-  #       run: appium --port 4723 --address 127.0.0.1 --base-path=/wd/hub
+      - name: Install App
+        run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
 
-  # test-auto-android:
-  #   runs-on: self-hosted
-  #   needs: [build-and-install-android]
-  #   steps:
-  #     - name: Start Robot Framework for Android App
-  #       run: cd autotest && robot test_sample.robot && cd ..
+  test-auto-android:
+    runs-on: self-hosted
+    needs: [build-and-install-android]
+    steps:
+      - name: Start Robot Framework for Android App
+        run: cd autotest && robot test_sample.robot && cd ..
 
   test-auto-ios:
     runs-on: self-hosted
-    # needs: [build-and-install-ios]
+    needs: [build-and-install-ios]
     steps:
       - uses: actions/checkout@v3
       - name: Start Robot Framework for iOS App
