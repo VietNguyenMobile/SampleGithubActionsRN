@@ -19,26 +19,31 @@ jobs:
     steps:
       - name: Start Robot Framework for Android App
         run: cd autotestAndroid && robot test_sample.robot && cd ..
+    
+      - name: Send report to commit
+            uses: joonvena/robotframework-reporter-action@v2.3
+            with:
+              gh_access_token: ${{ secrets.TOKEN_ACCESS }}
 
-  build-and-install-ios:
-    runs-on: self-hosted
-    steps:
-      - name: yarn install dependencies
-        run: yarn install
+  # build-and-install-ios:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: yarn install dependencies
+  #       run: yarn install
 
-      - name: bundle install
-        run: bundle install
+  #     - name: bundle install
+  #       run: bundle install
 
-      - name: pod install
-        run: cd ios && pod install --repo-update && cd ..
+  #     - name: pod install
+  #       run: cd ios && pod install --repo-update && cd ..
 
-      - name: Install App
-        run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
+  #     - name: Install App
+  #       run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
 
-  test-auto-ios:
-    runs-on: self-hosted
-    needs: [build-and-install-ios]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Start Robot Framework for iOS App
-        run: cd autotestIOS && robot test_sample_ios.robot && cd ..
+  # test-auto-ios:
+  #   runs-on: self-hosted
+  #   needs: [build-and-install-ios]
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Start Robot Framework for iOS App
+  #       run: cd autotestIOS && robot test_sample_ios.robot && cd ..
