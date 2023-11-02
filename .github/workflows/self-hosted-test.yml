@@ -19,11 +19,11 @@ jobs:
     steps:
       - name: Start Robot Framework for Android App
         run: cd autotestAndroid && robot test_sample.robot && cd ..
-    
+
       - name: Send report to commit
-            uses: joonvena/robotframework-reporter-action@v2.3
-            with:
-              gh_access_token: ${{ secrets.TOKEN_ACCESS }}
+      - uses: joonvena/robotframework-reporter-action@v2.3
+        with:
+          gh_access_token: ${{ secrets.TOKEN_ACCESS }}
 
   # build-and-install-ios:
   #   runs-on: self-hosted
