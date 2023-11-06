@@ -18,17 +18,17 @@ jobs:
       - name: Install App
         run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
 
-  test-auto-ios:
+  run-auto-test-ios:
     runs-on: self-hosted
     needs: [build-and-install-ios]
     steps:
       - uses: actions/checkout@v3
       - name: Start Robot Framework for iOS App
-        run: robot -d reportsIOS autotesIOS
+        run: robot -d reportsIOS autotestIOS
 
-  upload-report-ios:
+  upload-report-test-ios:
     if: always()
-    needs: [test-auto-ios]
+    needs: [run-auto-test-ios]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -37,7 +37,7 @@ jobs:
         with:
           name: reportsIOS
           path: reportsIOS
-      - name: Upload report iOS
+      - name: Upload test report iOS
         uses: joonvena/robotframework-reporter-action@v2.3
         with:
           report_path: reportsIOS

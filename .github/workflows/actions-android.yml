@@ -13,7 +13,7 @@ jobs:
       - name: Build android release
         run: yarn android --mode release
 
-  test-auto-android:
+  run-auto-test-android:
     runs-on: self-hosted
     needs: [build-and-install-android]
     steps:
@@ -28,18 +28,18 @@ jobs:
           name: reportsAndroid
           path: reportsAndroid
 
-  upload-report-android:
+  upload-report-test-android:
     if: always()
-    needs: [test-auto-android]
+    needs: [run-auto-test-android]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Download test  Android
+      - name: Download test report Android
         uses: actions/download-artifact@v3
         with:
           name: reportsAndroid
           path: reportsAndroid
-      - name: Upload report Android
+      - name: Upload test report Android
         uses: joonvena/robotframework-reporter-action@v2.3
         with:
           report_path: reportsAndroid
