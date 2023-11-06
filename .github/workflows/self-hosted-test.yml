@@ -38,10 +38,12 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: reports
+        run: ls
       - name: Extract reports
         uses: brunoborges/justextract@v1
         with:
           file: reports
+        run: ls
       - name: Output report
         uses: joonvena/robotframework-reporter-action@v2.3
         with:
