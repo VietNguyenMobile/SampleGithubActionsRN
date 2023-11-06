@@ -1,60 +1,27 @@
-# name: CI Build iOS App
-# on:
-#   push:
-#     branches: [main]
-# jobs:
-#   build-android:
-#     runs-on: macos-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - name: Get yarn cache directory path
-#         id: yarn-cache-dir-path
-#         run: echo "::set-output name=dir::$(yarn cache dir)"
+name: Auto Build and Install App iOS
+on:
+  push:
+    branches: [main]
+jobs:
+  build-and-install-ios:
+    runs-on: self-hosted
+    steps:
+      - name: yarn install dependencies
+        run: yarn install
 
-#       - name: Restore node_modules from cache
-#         uses: actions/cache@v3
-#         id: yarn-cache
-#         with:
-#           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-#           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-#           restore-keys: |
-#             ${{ runner.os }}-yarn-
+      - name: bundle install
+        run: bundle install
 
-#       - name: Install dependencies
-#         run: yarn install --frozen-lockfile --network-timeout 300000
+      - name: pod install
+        run: cd ios && pod install --repo-update && cd ..
 
-#       - name: Setup Ruby (bundle)
-#         uses: ruby/setup-ruby@v1
-#         with:
-#           ruby-version: 2.7
-#           bundler-cache: true
+      - name: Install App
+        run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
 
-#       - name: Restore Pods cache
-#         uses: actions/cache@v3
-#         with:
-#           path: |
-#             ios/Pods
-#             ~/Library/Caches/CocoaPods
-#             ~/.cocoapods
-#           key: ${{ runner.os }}-pods-${{ hashFiles('ios/Podfile.lock') }}
-#           restore-keys: |
-#             ${{ runner.os }}-pods-
-
-#       - name: Install Pods
-#         run: |
-#           pwd
-#           ls
-#           cd ios && pod install --repo-update && cd ..
-
-#       - name: Build IOS App
-#         uses: yukiarrr/ios-build-action@v1.4.0
-#         with:
-#           project-path: ios/SampleGithubActionsRN.xcodeproj
-#           p12-base64: ${{ secrets.IOS_P12_BASE64 }}
-#           mobileprovision-base64: ${{ secrets.IOS_MOBILE_PROVISION_BASE64 }}
-#           code-signing-identity: 'iPhone Distribution'
-#           team-id: ${{ secrets.IOS_TEAM_ID }}
-#           certificate-password: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
-#           workspace-path: ios/SampleGithubActionsRN.xcworkspace
-#           scheme: SampleGithubActionsRN
-
+  test-auto-ios:
+    runs-on: self-hosted
+    needs: [build-and-install-ios]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Start Robot Framework for iOS App
+        run: cd autotestIOS && robot test_sample_ios.robot && cd ..

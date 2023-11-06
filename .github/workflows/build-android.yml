@@ -1,35 +1,47 @@
-# name: CI Build Android App 1
-# on:
-#   push:
-#     branches: [main]
-# jobs:
-#   build-android:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v3
-#       - name: Install npm dependencies
-#         run: |
-#           npm install
-#           # npx react-native run-android --mode=release
+name: Auto Build and Install App Android
+on:
+  push:
+    branches: [main]
+jobs:
+  build-and-install-android:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: yarn install dependencies
+        run: yarn install
 
-#       - name: Build android release
-#         run: |
-#           cat ~/.bash_profile
-#           source ~/.bash_profile
-#           cd android && ./gradlew assembleRelease
+      - name: Build android release
+        run: yarn android --mode release
 
-#       - name: Upload artifact
-#         uses: actions/upload-artifact@v3
-#         with:
-#           name: app-release.apk
-#           path: android/app/build/outputs/apk/release/
+  test-auto-android:
+    runs-on: self-hosted
+    needs: [build-and-install-android]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Start Robot Framework for Android App
+        run: robot -d reportsAndroid autotestAndroid
 
-#       - name: upload artefact to App Center
-#         uses: wzieba/AppCenter-Github-Action@v1
-#         with:
-#           appName: wzieba/SampleGithubActionsRN
-#           token: ${{secrets.APP_CENTER_TOKEN_ANDROID}}
-#           group: Testers
-#           file: app/build/outputs/apk/release/app-release.apk
-#           notifyTesters: true
-#           debug: false
+      - name: Store test report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: reportsAndroid
+          path: reportsAndroid
+
+  upload-report-android:
+    if: always()
+    needs: [test-auto-android]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download test report
+        uses: actions/download-artifact@v3
+        with:
+          name: reportsAndroid
+          path: reportsAndroid
+      - name: Output report
+        uses: joonvena/robotframework-reporter-action@v2.3
+        with:
+          report_path: reportsAndroid
+          gh_access_token: ${{ secrets.TOKEN_ACCESS }}
+
