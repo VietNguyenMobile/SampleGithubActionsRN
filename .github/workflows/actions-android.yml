@@ -21,7 +21,7 @@ jobs:
       - name: Start Robot Framework for Android App
         run: robot -d reportsAndroid autotestAndroid
 
-      - name: Store test report
+      - name: Store test report Android
         uses: actions/upload-artifact@v3
         if: always()
         with:

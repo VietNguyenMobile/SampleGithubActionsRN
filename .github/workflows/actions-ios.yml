@@ -26,6 +26,13 @@ jobs:
       - name: Start Robot Framework for iOS App
         run: robot -d reportsIOS autotestIOS
 
+      - name: Store test report iOS
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: reportsIOS
+          path: reportsIOS
+
   upload-report-test-ios:
     if: always()
     needs: [run-auto-test-ios]
