@@ -38,6 +38,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: reports
+      - name: Extract reports
+        uses: ihiroky/extract-action@v1
+        with:
+          file_path: reports.zip
       - name: Output report
         uses: joonvena/robotframework-reporter-action@v2.3
         with:
