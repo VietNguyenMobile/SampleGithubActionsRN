@@ -25,7 +25,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: reports
+          name: autotestAndroid
           path: autotestAndroid
 
   generate_report:
@@ -37,11 +37,11 @@ jobs:
       - name: Download test report
         uses: actions/download-artifact@v3
         with:
-          name: reports
+          name: autotestAndroid
       - name: Output report
         uses: joonvena/robotframework-reporter-action@v2.3
         with:
-          report_path: reports
+          report_path: autotestAndroid
           gh_access_token: ${{ secrets.TOKEN_ACCESS }}
 
         # - name: Up load output report
