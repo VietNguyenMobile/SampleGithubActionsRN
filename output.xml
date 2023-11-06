@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1 (Python 3.11.4 on darwin)" generated="20231025 15:06:30.415" rpa="false" schemaversion="4">
+<suite id="s1" name="Test Sample" source="/Users/macbook/Desktop/Automation/sample_workfl_test/robotframework/tests/android/sample/test_sample.robot">
+<test id="s1-t1" name="Open App And Check Welcome Text" line="41">
+<kw name="Open Android Test App Sample">
+<kw name="Open Application" library="AppiumLibrary">
+<arg>http://127.0.0.1:4723/wd/hub</arg>
+<arg>automationName=${ANDROID_AUTOMATION_NAME}</arg>
+<arg>platformName=${ANDROID_PLATFORM_NAME}</arg>
+<arg>platformVersion=${ANDROID_PLATFORM_VERSION}</arg>
+<arg>appPackage=${ANDROID_APP_PACKAGE}</arg>
+<arg>appActivity=${APP_ACTIVITY}</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="PASS" starttime="20231025 15:06:30.497" endtime="20231025 15:06:35.227"/>
+</kw>
+<status status="PASS" starttime="20231025 15:06:30.497" endtime="20231025 15:06:35.227"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="AppiumLibrary">
+<arg>${WELCOME_TEXT3}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until element specified with `locator` appears on current page.</doc>
+<msg timestamp="20231025 15:06:36.490" level="INFO">xpath criteria: //android.widget.TextView[@content-desc="id-app-tsx"]</msg>
+<status status="PASS" starttime="20231025 15:06:35.227" endtime="20231025 15:06:36.491"/>
+</kw>
+<kw name="Close All Applications" library="AppiumLibrary" type="TEARDOWN">
+<doc>Closes all open applications.</doc>
+<status status="PASS" starttime="20231025 15:06:36.491" endtime="20231025 15:06:36.902"/>
+</kw>
+<status status="PASS" starttime="20231025 15:06:30.497" endtime="20231025 15:06:36.902"/>
+</test>
+<kw name="Close All Applications" library="AppiumLibrary" type="TEARDOWN">
+<doc>Closes all open applications.</doc>
+<status status="PASS" starttime="20231025 15:06:36.902" endtime="20231025 15:06:36.904"/>
+</kw>
+<status status="PASS" starttime="20231025 15:06:30.416" endtime="20231025 15:06:36.904"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Test Sample">Test Sample</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
