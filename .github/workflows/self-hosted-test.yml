@@ -26,9 +26,9 @@ jobs:
         if: always()
         with:
           name: reports
-          path: reports
+          path: autotestAndroid
 
-  report:
+  generate_report:
     if: always()
     needs: [test-auto-android]
     runs-on: ubuntu-latest
@@ -37,7 +37,7 @@ jobs:
       - name: Download test report
         uses: actions/download-artifact@v1
         with:
-          name: reports
+          name: autotestAndroid
       - name: Output report
         uses: joonvena/robotframework-reporter-action@v2.3
         with:
