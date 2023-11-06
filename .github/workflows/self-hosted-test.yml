@@ -39,9 +39,9 @@ jobs:
         with:
           name: reports
       - name: Extract reports
-        uses: montudor/action-zip@v1
+        uses: brunoborges/justextract@v1
         with:
-          args: unzip -qq reports.zip -d reports
+          file: reports
       - name: Output report
         uses: joonvena/robotframework-reporter-action@v2.3
         with:
