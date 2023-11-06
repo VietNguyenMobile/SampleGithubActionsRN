@@ -19,42 +19,36 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Start Robot Framework for Android App
-        run: cd autotestAndroid && robot test_sample.robot && cd ..
+        run: robot -d reports autotestAndroid
 
       - name: Store test report
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: autotestAndroid
-          path: autotestAndroid
+          name: reports
+          path: reports
 
+  generate_report:
+    if: always()
+    needs: [test-auto-android]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download test report
+        uses: actions/download-artifact@v3
+        with:
+          name: reports
       - name: Output report
         uses: joonvena/robotframework-reporter-action@v2.3
         with:
-          report_path: autotestAndroid
+          report_path: reports
           gh_access_token: ${{ secrets.TOKEN_ACCESS }}
 
-  # generate_report:
-  #   if: always()
-  #   needs: [test-auto-android]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Download test report
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: autotestAndroid
-  #     - name: Output report
-  #       uses: joonvena/robotframework-reporter-action@v2.3
-  #       with:
-  #         report_path: autotestAndroid
-  #         gh_access_token: ${{ secrets.TOKEN_ACCESS }}
-
-  # - name: Up load output report
-  #   uses: joonvena/robotframework-reporter-action@v2
-  #   with:
-  #     report_path: autotestAndroid
-  #     gh_access_token: ${{ secrets.TOKEN_ACCESS }}
+        # - name: Up load output report
+        #   uses: joonvena/robotframework-reporter-action@v2
+        #   with:
+        #     report_path: autotestAndroid
+        #     gh_access_token: ${{ secrets.TOKEN_ACCESS }}
 
   # report:
   #   if: always()
