@@ -41,3 +41,7 @@ Open Android Test App Sample
 Open App And Check Welcome Text
     Open Android Test App Sample
     Wait Until Page Contains Element    ${WELCOME_TEXT3}    timeout=15s
+
+Open App And Check Welcome Text Failed
+    Open Android Test App Sample
+    Wait Until Page Contains Element    ${WELCOME_TEXT3}    timeout=15s
