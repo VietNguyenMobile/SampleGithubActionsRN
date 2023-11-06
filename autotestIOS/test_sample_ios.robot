@@ -40,3 +40,7 @@ Open iOS App Sample
 Open App And Check Welcome Text
     Open iOS App Sample
     Wait Until Page Contains Element    ${WELCOME_TEXT3}    timeout=15s
+
+Open App And Check Welcome Second
+    Open iOS App Sample
+    Wait Until Page Contains Element    ${WELCOME_TEXT3}    timeout=15s

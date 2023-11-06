@@ -34,12 +34,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Download test report
+      - name: Download test  Android
         uses: actions/download-artifact@v3
         with:
           name: reportsAndroid
           path: reportsAndroid
-      - name: Output report
+      - name: Upload report Android
         uses: joonvena/robotframework-reporter-action@v2.3
         with:
           report_path: reportsAndroid
