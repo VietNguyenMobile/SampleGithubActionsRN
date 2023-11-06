@@ -35,15 +35,17 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Download test report
+        run: ls
         uses: actions/download-artifact@v3
         with:
           name: reports
-        run: ls
+
       - name: Extract reports
         uses: brunoborges/justextract@v1
+        run: ls
         with:
           file: reports
-        run: ls
+
       - name: Output report
         uses: joonvena/robotframework-reporter-action@v2.3
         with:
