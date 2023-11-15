@@ -1,51 +1,51 @@
-name: Auto Build and Install App iOS
-on:
-  push:
-    branches: [main]
-jobs:
-  build-and-install-ios:
-    runs-on: self-hosted
-    steps:
-      - name: yarn install dependencies
-        run: yarn install
+# name: Auto Build and Install App iOS
+# on:
+#   push:
+#     branches: [main]
+# jobs:
+#   build-and-install-ios:
+#     runs-on: self-hosted
+#     steps:
+#       - name: yarn install dependencies
+#         run: yarn install
 
-      - name: bundle install
-        run: bundle install
+#       - name: bundle install
+#         run: bundle install
 
-      - name: pod install
-        run: cd ios && pod install --repo-update && cd ..
+#       - name: pod install
+#         run: cd ios && pod install --repo-update && cd ..
 
-      - name: Install App
-        run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
+#       - name: Install App
+#         run: npx react-native run-ios --configuration Release --device "iPhone 12 Mini"
 
-  run-auto-test-ios:
-    runs-on: self-hosted
-    needs: [build-and-install-ios]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Start Robot Framework for iOS App
-        run: robot -d reportsIOS autotestIOS
+#   run-auto-test-ios:
+#     runs-on: self-hosted
+#     needs: [build-and-install-ios]
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Start Robot Framework for iOS App
+#         run: robot -d reportsIOS autotestIOS
 
-      - name: Store test report iOS
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: reportsIOS
-          path: reportsIOS
+#       - name: Store test report iOS
+#         uses: actions/upload-artifact@v3
+#         if: always()
+#         with:
+#           name: reportsIOS
+#           path: reportsIOS
 
-  upload-report-test-ios:
-    if: always()
-    needs: [run-auto-test-ios]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Download test report iOS
-        uses: actions/download-artifact@v3
-        with:
-          name: reportsIOS
-          path: reportsIOS
-      - name: Upload test report iOS
-        uses: joonvena/robotframework-reporter-action@v2.3
-        with:
-          report_path: reportsIOS
-          gh_access_token: ${{ secrets.TOKEN_ACCESS }}
+#   upload-report-test-ios:
+#     if: always()
+#     needs: [run-auto-test-ios]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#       - name: Download test report iOS
+#         uses: actions/download-artifact@v3
+#         with:
+#           name: reportsIOS
+#           path: reportsIOS
+#       - name: Upload test report iOS
+#         uses: joonvena/robotframework-reporter-action@v2.3
+#         with:
+#           report_path: reportsIOS
+#           gh_access_token: ${{ secrets.TOKEN_ACCESS }}
