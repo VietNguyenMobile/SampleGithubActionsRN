@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: yarn install dependencies
-        run: yarn install
+        run: node -v && yarn install
 
       - name: Build android release
         run: yarn android --mode release
