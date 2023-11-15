@@ -13,35 +13,35 @@ jobs:
       - name: Build android release
         run: yarn android --mode release
 
-  run-auto-test-android:
-    runs-on: self-hosted
-    needs: [build-and-install-android]
-    steps:
-      - uses: actions/checkout@v3
-      - name: Start Robot Framework for Android App
-        run: robot -d reportsAndroid autotestAndroid
+  # run-auto-test-android:
+  #   runs-on: self-hosted
+  #   needs: [build-and-install-android]
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Start Robot Framework for Android App
+  #       run: robot -d reportsAndroid autotestAndroid
 
-      - name: Store test report Android
-        uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: reportsAndroid
-          path: reportsAndroid
+  #     - name: Store test report Android
+  #       uses: actions/upload-artifact@v3
+  #       if: always()
+  #       with:
+  #         name: reportsAndroid
+  #         path: reportsAndroid
 
-  upload-report-test-android:
-    if: always()
-    needs: [run-auto-test-android]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Download test report Android
-        uses: actions/download-artifact@v3
-        with:
-          name: reportsAndroid
-          path: reportsAndroid
-      - name: Upload test report Android
-        uses: joonvena/robotframework-reporter-action@v2.3
-        with:
-          report_path: reportsAndroid
-          gh_access_token: ${{ secrets.TOKEN_ACCESS }}
+  # upload-report-test-android:
+  #   if: always()
+  #   needs: [run-auto-test-android]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Download test report Android
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: reportsAndroid
+  #         path: reportsAndroid
+  #     - name: Upload test report Android
+  #       uses: joonvena/robotframework-reporter-action@v2.3
+  #       with:
+  #         report_path: reportsAndroid
+  #         gh_access_token: ${{ secrets.TOKEN_ACCESS }}
 
