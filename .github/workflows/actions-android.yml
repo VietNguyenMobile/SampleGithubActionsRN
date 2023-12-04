@@ -1,4 +1,4 @@
-name: Auto Build and Install App Android 3
+name: Auto Build and Install App Android 
 on:
   push:
     branches: [main]
@@ -13,20 +13,20 @@ jobs:
       - name: Build android release
         run: yarn android --mode release
 
-  # run-auto-test-android:
-  #   runs-on: self-hosted
-  #   needs: [build-and-install-android]
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Start Robot Framework for Android App
-  #       run: robot -d reportsAndroid autotestAndroid
+  run-auto-test-android:
+    runs-on: self-hosted
+    needs: [build-and-install-android]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Start Robot Framework for Android App
+        run: cd autotest && robot -d reportsAndroid testcases/android/test_sample.robot
 
-  #     - name: Store test report Android
-  #       uses: actions/upload-artifact@v3
-  #       if: always()
-  #       with:
-  #         name: reportsAndroid
-  #         path: reportsAndroid
+      - name: Store test report Android
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: reportsAndroid
+          path: autotest/reportsAndroid
 
   # upload-report-test-android:
   #   if: always()

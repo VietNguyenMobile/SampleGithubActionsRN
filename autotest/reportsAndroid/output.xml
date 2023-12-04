@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 6.1 (Python 3.11.4 on darwin)" generated="20231026 15:27:48.426" rpa="false" schemaversion="4">
+<suite id="s1" name="Test Sample Ios" source="/Users/macbook/Desktop/ReactNativeApp/SampleGithubActionsRN/autotestIOS/test_sample_ios.robot">
+<test id="s1-t1" name="Open App And Check Welcome Text" line="40">
+<kw name="Open iOS App Sample">
+<kw name="Open Application" library="AppiumLibrary">
+<arg>http://127.0.0.1:4724/wd/hub</arg>
+<arg>automationName=${ios_automation_name}</arg>
+<arg>deviceName=${DEVICE_NAME_IOS}</arg>
+<arg>platformName=${ios_platform_name}</arg>
+<arg>platformVersion=${ios_platform_version}</arg>
+<arg>bundleId=${bundle_id}</arg>
+<arg>udid=${udid}</arg>
+<arg>newCommandTimeout=60000</arg>
+<arg>launchTimeout=48000</arg>
+<arg>xcodeOrgId=${xcode_org_id}</arg>
+<arg>xcodeSigningId=${xcode_signing_id}</arg>
+<arg>appWaitActivity=*</arg>
+<arg>autoGrantPermissions=true</arg>
+<arg>noReset=true</arg>
+<doc>Opens a new application to given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://github.com/appium/appium/blob/master/docs/en/writing-running-appium/server-args.md
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | no     | alias             |
+| strict_ssl          | No     | allows you to send commands to an invalid certificate host like a self-signed one. |</doc>
+<status status="PASS" starttime="20231026 15:27:48.511" endtime="20231026 15:27:49.546"/>
+</kw>
+<status status="PASS" starttime="20231026 15:27:48.511" endtime="20231026 15:27:49.546"/>
+</kw>
+<kw name="Wait Until Page Contains Element" library="AppiumLibrary">
+<arg>${WELCOME_TEXT3}</arg>
+<arg>timeout=15s</arg>
+<doc>Waits until element specified with `locator` appears on current page.</doc>
+<status status="PASS" starttime="20231026 15:27:49.546" endtime="20231026 15:27:49.734"/>
+</kw>
+<kw name="Close All Applications" library="AppiumLibrary" type="TEARDOWN">
+<doc>Closes all open applications.</doc>
+<status status="PASS" starttime="20231026 15:27:49.734" endtime="20231026 15:27:49.739"/>
+</kw>
+<status status="PASS" starttime="20231026 15:27:48.511" endtime="20231026 15:27:49.739"/>
+</test>
+<kw name="Close All Applications" library="AppiumLibrary" type="TEARDOWN">
+<doc>Closes all open applications.</doc>
+<status status="PASS" starttime="20231026 15:27:49.739" endtime="20231026 15:27:49.740"/>
+</kw>
+<status status="PASS" starttime="20231026 15:27:48.427" endtime="20231026 15:27:49.740"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Test Sample Ios">Test Sample Ios</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
