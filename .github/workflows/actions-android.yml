@@ -1,4 +1,4 @@
-name: Auto Build and Install App Android 
+name: Auto Build and Install App Android 1
 on:
   push:
     branches: [main]
