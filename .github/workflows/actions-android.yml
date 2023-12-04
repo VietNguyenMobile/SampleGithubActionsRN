@@ -11,7 +11,8 @@ jobs:
         run: node -v && yarn install
 
       - name: Build android release
-        run: yarn android --mode release
+        # run: yarn android --mode release
+        run: pwd
 
   run-auto-test-android:
     runs-on: self-hosted
@@ -28,20 +29,20 @@ jobs:
           name: reportsAndroid
           path: autotest/reportsAndroid
 
-  # upload-report-test-android:
-  #   if: always()
-  #   needs: [run-auto-test-android]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Download test report Android
-  #       uses: actions/download-artifact@v3
-  #       with:
-  #         name: reportsAndroid
-  #         path: reportsAndroid
-  #     - name: Upload test report Android
-  #       uses: joonvena/robotframework-reporter-action@v2.3
-  #       with:
-  #         report_path: reportsAndroid
-  #         gh_access_token: ${{ secrets.TOKEN_ACCESS }}
+  upload-report-test-android:
+    if: always()
+    needs: [run-auto-test-android]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Download test report Android
+        uses: actions/download-artifact@v3
+        with:
+          name: reportsAndroid
+          path: autotest/reportsAndroid
+      - name: Upload test report Android
+        uses: joonvena/robotframework-reporter-action@v2.3
+        with:
+          report_path: autotest/reportsAndroid
+          gh_access_token: ${{ secrets.TOKEN_ACCESS }}
 
